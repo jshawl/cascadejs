@@ -1,34 +1,52 @@
 (function(){
-  module("Create", {
+  module("Cascade", {
     beforeEach: function(){
-      this.c = new cascade(".class #id")
+      this.c = new Cascade()
     }
   })
   test('can be created', function( assert ){
     assert.notEqual( this.c, undefined )
   })
+  test('it has many styles', function( assert ){
+    var style = new Style('.class #id')
+    this.c.styles.push( style );
+    assert.equal( this.c.styles.length, 1 )
+  })
+  test('it can be saved', function( assert ){
+    this.c.save()
+    var styles = document.querySelector("[cascade]")
+    assert.notEqual( styles, null )
+  })
+  test('it can be removed', function( assert ){
+    this.c.remove()
+    var styles = document.querySelector("[cascade]")
+    assert.equal( styles, null )
+  })
+  module("Style", {
+    beforeEach: function(){
+      this.s = new Style(".class #id")
+    }
+  })
   test('it has a selector', function( assert ){
-    var c = new cascade(".class #id")
-    assert.equal( c.selector, ".class #id" )
+    assert.equal( this.s.selector, ".class #id" )
   })
   test('it has rules', function( assert ){
-    var c = new cascade(".class #id")
-    assert.equal( c.rules.constructor, Object )
+    assert.equal( this.s.rules.constructor, Object )
+  })
+  test('it has a string representation', function( assert ){
+    this.s.rules.color = 'red'
+    assert.equal( this.s.stringify(), ".class #id { color: red; }")
   })
   test('it has a css method', function( assert ){
-    assert.equal( typeof this.c.css, "function"  )
+    this.s.rules.color = 'red'
+    assert.equal( this.s.css(), ".class #id { color: red; }")
   })
-  test('it returns the rules without arguments', function( assert ){
-    assert.equal( this.c.css(), this.c.rules )
-    var c = this.c.css()
-    assert.equal( c.constructor, Object )
+  test('it has a css method that supports getter setter syntax', function( assert ){
+    this.s.css('color','blue')
+    assert.equal( this.s.css(), ".class #id { color: blue; }")
   })
-  test('it supports getter setter arguments', function( assert ){
-    var c = this.c.css( 'color','blue' );
-    assert.equal( c.rules.color, "blue" )
-  })
-  test('it supports object arguments', function( assert ){
-    var c = this.c.css({ color: 'blue' })
-    assert.equal( c.rules.color, "blue" )
+  test('it has a css method that supports object syntax', function( assert ){
+    this.s.css({color:'green'})
+    assert.equal( this.s.css(), ".class #id { color: green; }")
   })
 })()
