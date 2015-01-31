@@ -19,7 +19,7 @@ var Cascade = (function(){
       return this	    
     }
   }
-  return Cascade;
+  return Cascade
 
 })()
 
