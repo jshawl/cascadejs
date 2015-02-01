@@ -17,17 +17,17 @@ var Cascade = (function(){
     },
     styles: function(){
       return this	    
+    },
+    style: function( args ){
+      return new Style( args, this )	   
     }
   }
-  return Cascade
 
-})()
-
-var Style = (function(){
-
-  var Style = function( selector ){
+  var Style = function( selector, context ){
     this.selector = selector
     this.rules = {}
+    context.styles.push( this )
+    return this
   }
 
   Style.prototype = {
@@ -60,6 +60,5 @@ var Style = (function(){
       }
     },
   }
-
-  return Style
+  return Cascade
 })()

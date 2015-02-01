@@ -8,8 +8,7 @@
     assert.notEqual( this.c, undefined )
   })
   test('it has many styles', function( assert ){
-    var style = new Style('.class #id')
-    this.c.styles.push( style );
+    var style = this.c.style('.class #id')
     assert.equal( this.c.styles.length, 1 )
   })
   test('it can be saved', function( assert ){
@@ -24,7 +23,8 @@
   })
   module("Style", {
     beforeEach: function(){
-      this.s = new Style(".class #id")
+      this.c = new Cascade()
+      this.s =  this.c.style(".class #id")
     }
   })
   test('it has a selector', function( assert ){
