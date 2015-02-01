@@ -24,7 +24,10 @@
   module("Style", {
     beforeEach: function(){
       this.c = new Cascade()
-      this.s =  this.c.style(".class #id")
+      this.s =  this.c.style(".class #id", {
+        color: 'red',
+        background: 'green'
+      })
     }
   })
   test('it has a selector', function( assert ){
@@ -32,21 +35,20 @@
   })
   test('it has rules', function( assert ){
     assert.equal( this.s.rules.constructor, Object )
+    assert.equal( this.s.rules.color, 'red' )
   })
   test('it has a string representation', function( assert ){
-    this.s.rules.color = 'red'
-    assert.equal( this.s.stringify(), ".class #id { color: red; }")
+    assert.equal( this.s.stringify(), ".class #id { color: red;background: green; }")
   })
   test('it has a css method', function( assert ){
-    this.s.rules.color = 'red'
-    assert.equal( this.s.css(), ".class #id { color: red; }")
+    assert.equal( this.s.css(), ".class #id { color: red;background: green; }")
   })
   test('it has a css method that supports getter setter syntax', function( assert ){
     this.s.css('color','blue')
-    assert.equal( this.s.css(), ".class #id { color: blue; }")
+    assert.equal( this.s.css(), ".class #id { color: blue;background: green; }")
   })
   test('it has a css method that supports object syntax', function( assert ){
     this.s.css({color:'green'})
-    assert.equal( this.s.css(), ".class #id { color: green; }")
+    assert.equal( this.s.css(), ".class #id { color: green;background: green; }")
   })
 })()

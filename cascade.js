@@ -18,14 +18,18 @@ var Cascade = (function(){
     styles: function(){
       return this	    
     },
-    style: function( args ){
-      return new Style( args, this )	   
+    style: function( args, rules ){
+      return new Style( args, rules, this )	   
     }
   }
 
-  var Style = function( selector, context ){
+  var Style = function( selector, rules, context){
     this.selector = selector
-    this.rules = {}
+    if( rules ){
+      this.rules = rules
+    } else {
+      this.rules = {} 
+    }
     context.styles.push( this )
     return this
   }
