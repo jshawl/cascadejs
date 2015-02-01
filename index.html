@@ -1,14 +1,19 @@
 <!doctype html>
 <html>
   <head>
-  
   </head>
   <body>
   <script src='cascade.js'></script>
   <script>
     var c = new Cascade();
-    c.style('.class #id', {
-      color: 'red'
+    c.style('html', {
+      border: '10px solid red'
+    })
+    document.addEventListener('mouseover', function(){
+      c.save() 
+    })
+    document.addEventListener('mouseout', function(){
+      c.remove() 
     })
   </script>
   </body>

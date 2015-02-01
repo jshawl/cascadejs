@@ -9,6 +9,11 @@ var Cascade = (function(){
       var style = document.createElement("style")	  
       style.setAttribute('cascade','')
       var styles = ''
+      var i = 0, len = this.styles.length
+      for( ; i < len; i++ ){
+        styles += this.styles[i].stringify() 
+      }
+      style.innerText = styles
       document.head.appendChild( style )
     },
     remove: function(){
