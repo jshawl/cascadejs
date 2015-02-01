@@ -1,6 +1,6 @@
 # CascadeJS
 
-An Object oriented CSS lexer
+An Object oriented CSS API
 
 ## Usage
 
