@@ -14,7 +14,7 @@ var Cascade = (function(){
         styles += this.styles[i].stringify() 
       }
       style.innerText = styles
-      document.head.appendChild( style )
+      document.head.insertBefore( style, document.head.firstChild )
     },
     remove: function(){
       var style = document.querySelector("[cascade]")	    
